@@ -1,5 +1,5 @@
 import unittest
-from backend import TicTacToe
+from backend import tictactoe
 
 # class TestTicTacToe(unittest.TestCase):
 #     def setUp(self):
