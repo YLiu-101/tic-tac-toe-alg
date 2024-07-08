@@ -1,5 +1,5 @@
 import unittest
-from backend import tictactoe
+from tictactoe import TicTacToe
 
 # class TestTicTacToe(unittest.TestCase):
 #     def setUp(self):
@@ -11,12 +11,30 @@ from backend import tictactoe
 #          self.assertEquals(1,1)
 
 class Test_Backend(unittest.TestCase):
-    def test_increment(self):
-        self.assertEqual(4, 4)
-
+    def setUp(self) -> None:
+        array1 = [1,0,-1]
+        array2 = [0,1,-1]
+        array3 = [1,-1,0]
+        array = [array1,array2,array3]
+        self.board = TicTacToe(array,1)
+    def tearDown(self) -> None:
+        pass
+        # self.board.dispose() 
+    def test_get_board(self):
+        array1 = [1,0,-1]
+        array2 = [0,1,-1]
+        array3 = [1,-1,0]
+        array = [array1,array2,array3]
+        self.assertEqual(self.board.get_board(), array)
+    def test_get_move(self):
+        self.assertEqual(self.board.get_move(),1)
+    def test_check_winner(self):
+        self.assertEqual(self.board.check_winner(),0)
+        self.board.update_board([1,0])
+        self.assertEqual(self.board.check_winner(),1)
+        self.assertEqual(self.board.get_move(),-1)
     # This test is designed to fail for demonstration purposes.
-    def test_decrement(self):
-        self.assertEqual(2+2.0000000000000001, 4)
+
 
 if __name__ == '__main__':
     unittest.main()

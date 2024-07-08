@@ -13,11 +13,11 @@ class TicTacToe:
         return self.player_move
     def update_board(self, new_move):
         # new_move format is (a,b)
-        if self.board[new_move[0],new_move[1]] != 0:
+        if self.board[new_move[0]][new_move[1]] != 0:
             raise Exception("Sorry spot is already taken")
         else:
-            self.board[new_move[0],new_move[1]] = player_move
-        player_move = player_move*-1
+            self.board[new_move[0]][new_move[1]] = self.player_move
+        self.player_move = self.player_move*-1
     def check_winner(self):
         def check_rows():
             for row in self.board:
@@ -44,7 +44,15 @@ class TicTacToe:
         if check_diags():
             return check_diags()
         return 0
-                
+    def spot_empty(self, position):
+        if self.board[position[0]][position[1]] == 0:
+            return True
+        return False
+
+class TacTreeTracer:
+    def __init__(self,board:TicTacToe):
+        self.board = board
+                    
 if __name__ == '__main__':
     pass
         
