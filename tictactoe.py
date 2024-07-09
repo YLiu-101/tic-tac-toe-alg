@@ -60,7 +60,7 @@ class TacTreeTracer:
         """
         def minimax(player_move,board):
             if (self.board.check_winner == 1 or self.board.check_winner == -1):
-                return self.board.check_winner()
+                return (self.board.check_winner(),[math.inf,math.inf])
             
             if (player_move == 1):
                 best_value = -math.inf
