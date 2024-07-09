@@ -37,12 +37,21 @@ class TicTacToe:
             elif abs(sum2) == 3:
                 return sum2/3
             return 0
+        def check_full():
+            count = 0
+            for row in self.board:
+                for j in row:
+                    if j==0:
+                        return False
+            return True
         if check_rows():
             return check_rows()
         if check_cols():
             return check_cols()
         if check_diags():
             return check_diags()
+        if check_full():
+            return 900
         return 0
     def spot_empty(self, position):
         if self.board[position[0]][position[1]] == 0:
@@ -122,7 +131,7 @@ def main():
     board = TicTacToe(board1,1)
     a = TacTreeTracer(board1)
     b = TacTreeTracer(board1)
-    while (board.check_winner() == 0 or moves < 9):
+    while (board.check_winner() == 0 and moves < 9):
         moves+=1
         a_move = a.player_move()
         b.get_opp_move(a_move)
