@@ -94,12 +94,27 @@ class TacTreeTracer:
         """
         self.board[move[0]][move[1]] = -1
         self.solution_space.pop(3*move[0]+move[1])
-    def display_board(self):
+    def display_board(self,array):
         """"
         Used if no frontend is present: displays the tic tac toe board to the terminal
         """
+        string = 10*"-" + "\n"
+        for i in array:
+            for j in i:
+                string += str(num_converter(j))
+                string += " | "
+            string = string[0:-3]
+            string += "\n"
+            string += 10*"-"
+            string += "\n"
+        print(string)
+        def num_converter(num):
+            if (num == 1):
+                return "O"
+            elif (num == -1):
+                return "X"
+            return " "        
         
-        pass
 def main():
     moves = 0
     b = TacTreeTracer() #Player/Computer
