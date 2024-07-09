@@ -1,5 +1,5 @@
 import numpy as np
-
+import math
 class TicTacToe:
     """
     Takes care of all the underlying game functionality
@@ -52,7 +52,40 @@ class TicTacToe:
 class TacTreeTracer:
     def __init__(self,board:TicTacToe):
         self.board = board
-                    
+        self.solution_space = list(range(9))
+    def player_move(self):
+        """
+        Implements the min-max algorithm here, returns the move bot decides to go with
+        """
+        def minimax(player_move,board):
+            if (self.board.check_winner == 1 or self.board.check_winner == -1):
+                return self.board.check_winner()
+            
+            if (player_move == 1):
+                best_value = -math.inf
+                for i in range(9):
+                    test_board = TicTacToe(board.get_board(),1)
+                    if (self.board.spot_empty((i//3,i%3))):
+                        test_board.update_board([i//3,i%3])
+                        value = minimax(-1,test_board)
+                        if (value>best_value):
+                            best_value = value
+                # Maximize score
+            elif (player_move == -1):
+                for i in range(9):
+                    test_board = TicTacToe(board.get_board(),-1)
+                    if (self.board.spot_empty((i//3,i%3))):
+                        test_board.update_board([i//3,i%3])
+                        minimax(1,test_board)
+                        value = minimax(-1,test_board)
+                        if (value>best_value):
+                            best_value = value
+    def get_opp_move(self,move):
+        self.board[move[0]][move[1]] = -1
+        self.solution_space.pop(3*move[0]+move[1])
+    def display_board(self):
+        pass
+    
 if __name__ == '__main__':
     pass
         
