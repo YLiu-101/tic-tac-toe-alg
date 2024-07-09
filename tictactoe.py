@@ -56,6 +56,7 @@ class TacTreeTracer:
     def player_move(self):
         """
         Implements the min-max algorithm here, returns the move bot decides to go with
+        This will also update the bot's board
         """
         def minimax(player_move,board):
             if (self.board.check_winner == 1 or self.board.check_winner == -1):
@@ -85,7 +86,20 @@ class TacTreeTracer:
         self.solution_space.pop(3*move[0]+move[1])
     def display_board(self):
         pass
-    
+def main():
+    moves = 0
+    b = TacTreeTracer() #Player/Computer
+    board1 = list(np.zeros((4,4)))
+    board = TicTacToe(board1,1)
+    a = TacTreeTracer(board1)
+    b = TacTreeTracer(board1)
+    while (board.check_winner() == 0 or moves < 9):
+        moves+=1
+        a_move = a.player_move()
+        b.get_opp_move(a_move)
+        b_move = b.player_move()
+        a.get_opp_move(b_move)
+    print(board.check_winner())
 if __name__ == '__main__':
-    pass
+    main()
         
