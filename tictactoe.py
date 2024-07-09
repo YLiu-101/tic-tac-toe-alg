@@ -98,6 +98,7 @@ class TacTreeTracer:
         """"
         Used if no frontend is present: displays the tic tac toe board to the terminal
         """
+        
         pass
 def main():
     moves = 0
