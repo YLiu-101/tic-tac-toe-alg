@@ -68,23 +68,36 @@ class TacTreeTracer:
                     test_board = TicTacToe(board.get_board(),1)
                     if (self.board.spot_empty((i//3,i%3))):
                         test_board.update_board([i//3,i%3])
-                        value = minimax(-1,test_board)
+                        value = minimax(-1,test_board)[0]
                         if (value>best_value):
                             best_value = value
+                            best_move = [i//3,i%3]
+                return (best_value,best_move)
                 # Maximize score
             elif (player_move == -1):
+                best_value = math.inf
                 for i in range(9):
                     test_board = TicTacToe(board.get_board(),-1)
                     if (self.board.spot_empty((i//3,i%3))):
                         test_board.update_board([i//3,i%3])
                         minimax(1,test_board)
                         value = minimax(-1,test_board)
-                        if (value>best_value):
+                        if (value<best_value):
                             best_value = value
+                            best_move = [i//3,i%3]
+                return (best_value,best_move)
     def get_opp_move(self,move):
+        """"
+        Takes in the opponent's move to update its own board
+
+        @return: None
+        """
         self.board[move[0]][move[1]] = -1
         self.solution_space.pop(3*move[0]+move[1])
     def display_board(self):
+        """"
+        Used if no frontend is present: displays the tic tac toe board to the terminal
+        """
         pass
 def main():
     moves = 0
@@ -99,7 +112,7 @@ def main():
         b.get_opp_move(a_move)
         b_move = b.player_move()
         a.get_opp_move(b_move)
-    print(board.check_winner())
+    print(f"And the winner is {board.check_winner()}!")
 if __name__ == '__main__':
     main()
         
