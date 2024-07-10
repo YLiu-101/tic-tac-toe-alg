@@ -57,7 +57,27 @@ class TicTacToe:
         if self.board[position[0]][position[1]] == 0:
             return True
         return False
-
+    def display_board(self):
+        """"
+        Used if no frontend is present: displays the tic tac toe board to the terminal
+        """
+        def num_converter(num):
+            if (num == 1):
+                return "O"
+            elif (num == -1):
+                return "X"
+            return " " 
+        array = self.get_board()
+        string = 10*"-" + "\n"
+        for i in array:
+            for j in i:
+                string += str(num_converter(j))
+                string += " | "
+            string = string[0:-3]
+            string += "\n"
+            string += 10*"-"
+            string += "\n"
+        print(string)
 class TacTreeTracer:
     def __init__(self,board:TicTacToe):
         self.board = board
@@ -68,7 +88,9 @@ class TacTreeTracer:
         This will also update the bot's board
         """
         def minimax(player_move,board):
-            if (self.board.check_winner == 1 or self.board.check_winner == -1):
+            if (self.board.check_winner() == 1 or self.board.check_winner() == -1 or self.board.check_winner() == 900):
+                if self.board.check_winner() == 900:
+                    return 0
                 return (self.board.check_winner(),[math.inf,math.inf])
             
             if (player_move == 1):
@@ -103,10 +125,11 @@ class TacTreeTracer:
         """
         self.board[move[0]][move[1]] = -1
         self.solution_space.pop(3*move[0]+move[1])
-    def display_board(self,array):
+    def display_board(self):
         """"
         Used if no frontend is present: displays the tic tac toe board to the terminal
         """
+        array = self.board.get_board()
         string = 10*"-" + "\n"
         for i in array:
             for j in i:
