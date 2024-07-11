@@ -28,7 +28,7 @@ class TicTacToe:
             for row in np.transpose(np.array(self.board)):
                 if abs(sum(row) == 3):
                     return sum(row)/3
-                return 0
+            return 0
         def check_diags():
             sum1 = self.board[0][0] +self.board[1][1] + self.board[2][2]
             sum2 = self.board[2][0] +self.board[1][1] + self.board[0][2]
