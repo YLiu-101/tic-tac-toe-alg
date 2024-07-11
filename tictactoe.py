@@ -87,36 +87,72 @@ class TacTreeTracer:
         Implements the min-max algorithm here, returns the move bot decides to go with
         This will also update the bot's board
         """
-        def minimax(player_move,board):
-            if (self.board.check_winner() == 1 or self.board.check_winner() == -1 or self.board.check_winner() == 900):
-                if self.board.check_winner() == 900:
-                    return 0
-                return (self.board.check_winner(),[math.inf,math.inf])
+        def submini(sign,board):
+            best_value = -sign*math.inf
+            best_move = [100,100]
+            for i in range(9):
+                # print("Testing new one +1")
+                new_array1 = copy.deepcopy(board.get_board())
+                test_board = TicTacToe(new_array1,sign)
+                if (board.spot_empty((i//3,i%3))):
+                    new_array = copy.deepcopy(new_array1)
+                    test_board = TicTacToe(new_array,sign)
+                    test_board.update_board([i//3,i%3])
+                    value = minimax(-sign,test_board)[0]
+                    if ((1+sign)*(value>best_value)):
+                        best_value = value
+                        best_move = [i//3,i%3]
+            # print(best_move)
+            return (best_value,best_move)
+        def minimax(player_move,board): 
+            board.display_board()
+            if (board.check_winner() == 1 or board.check_winner() == -1 or board.check_winner() == 900):
+                if board.check_winner() == 900:
+                    print("Tie")
+                    return (0,[math.inf,math.inf])
+                print("One winner")
+                return (board.check_winner(),[math.inf,math.inf])
             
             if (player_move == 1):
+                # return submini(1,board)
                 best_value = -math.inf
+                best_move = [100,100]
                 for i in range(9):
-                    test_board = TicTacToe(board.get_board(),1)
-                    if (self.board.spot_empty((i//3,i%3))):
+                    # print("Testing new one +1")
+                    new_array1 = copy.deepcopy(board.get_board())
+                    test_board = TicTacToe(new_array1,1)
+                    if (board.spot_empty((i//3,i%3))):
+                        new_array = copy.deepcopy(new_array1)
+                        test_board = TicTacToe(new_array,1)
                         test_board.update_board([i//3,i%3])
                         value = minimax(-1,test_board)[0]
                         if (value>best_value):
                             best_value = value
                             best_move = [i//3,i%3]
+                # print(best_move)
                 return (best_value,best_move)
                 # Maximize score
             elif (player_move == -1):
+                # return submini(-1,board)
                 best_value = math.inf
+                best_move = [100,100]
                 for i in range(9):
-                    test_board = TicTacToe(board.get_board(),-1)
-                    if (self.board.spot_empty((i//3,i%3))):
+                    # print("Testing new one -1")
+                    new_array1 = copy.deepcopy(board.get_board())
+                    test_board = TicTacToe(new_array1,-1)
+                    if (board.spot_empty((i//3,i%3))):
+                        new_array = copy.deepcopy(new_array1)
+                        test_board = TicTacToe(new_array,-1)
                         test_board.update_board([i//3,i%3])
-                        minimax(1,test_board)
-                        value = minimax(-1,test_board)
+                        value = minimax(1,test_board)[0]
                         if (value<best_value):
                             best_value = value
                             best_move = [i//3,i%3]
+                # print(best_move)
                 return (best_value,best_move)
+        a = minimax(self.player_position,self.board)
+        print(self.board.get_board())
+        return a
     def get_opp_move(self,move):
         """"
         Takes in the opponent's move to update its own board
