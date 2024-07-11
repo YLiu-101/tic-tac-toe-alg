@@ -93,17 +93,14 @@ class TacTreeTracer:
             best_move = [100,100]
             for i in range(9):
                 # print("Testing new one +1")
-                new_array1 = copy.deepcopy(board.get_board())
-                test_board = TicTacToe(new_array1,sign)
                 if (board.spot_empty((i//3,i%3))):
-                    new_array = copy.deepcopy(new_array1)
+                    new_array = copy.deepcopy(board.get_board())
                     test_board = TicTacToe(new_array,sign)
                     test_board.update_board([i//3,i%3])
                     value = minimax(-sign,test_board)[0]
-                    if ((1+sign)*(value>best_value)):
+                    if ((value>best_value and sign>0) or (value<best_value and sign<0)):
                         best_value = value
                         best_move = [i//3,i%3]
-            # print(best_move)
             return (best_value,best_move)
         def minimax(player_move,board): 
             board.display_board()
@@ -113,37 +110,11 @@ class TacTreeTracer:
                     return (0,[math.inf,math.inf])
                 print("One winner")
                 return (board.check_winner(),[math.inf,math.inf])
-            
             if (player_move == 1):
-                # return submini(1,board)
-                best_value = -math.inf
-                best_move = [100,100]
-                for i in range(9):
-                    if (board.spot_empty((i//3,i%3))):
-                        new_array = copy.deepcopy(board.get_board())
-                        test_board = TicTacToe(new_array,1)
-                        test_board.update_board([i//3,i%3])
-                        value = minimax(-1,test_board)[0]
-                        if (value>best_value):
-                            best_value = value
-                            best_move = [i//3,i%3]
-                return (best_value,best_move)
+                return submini(1,board)
             elif (player_move == -1):
-                # return submini(-1,board)
-                best_value = math.inf
-                best_move = [100,100]
-                for i in range(9):
-                    new_array1 = copy.deepcopy(board.get_board())
-                    test_board = TicTacToe(new_array1,-1)
-                    if (board.spot_empty((i//3,i%3))):
-                        new_array = copy.deepcopy(new_array1)
-                        test_board = TicTacToe(new_array,-1)
-                        test_board.update_board([i//3,i%3])
-                        value = minimax(1,test_board)[0]
-                        if (value<best_value):
-                            best_value = value
-                            best_move = [i//3,i%3]
-                return (best_value,best_move)
+                return submini(-1,board)
+
         a = minimax(self.player_position,self.board)
         print(self.board.get_board())
         return a
