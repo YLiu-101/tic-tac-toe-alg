@@ -26,7 +26,7 @@ class TicTacToe:
             return 0
         def check_cols():
             for row in np.transpose(np.array(self.board)):
-                if abs(sum(row) == 3):
+                if abs(sum(row)) == 3:
                     return sum(row)/3
             return 0
         def check_diags():

@@ -33,6 +33,9 @@ class Test_Backend(unittest.TestCase):
         self.board.update_board([1,0])
         self.assertEqual(self.board.check_winner(),1)
         self.assertEqual(self.board.get_move(),-1)
+        new_board1 = [[-1,-1,1],[1,-1,0],[-1,-1,1]]
+        new_board = TicTacToe(new_board1,1)
+        self.assertEqual(new_board.check_winner(),-1)
     # This test is designed to fail for demonstration purposes.
 
 
