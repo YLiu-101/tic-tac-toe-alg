@@ -119,26 +119,20 @@ class TacTreeTracer:
                 best_value = -math.inf
                 best_move = [100,100]
                 for i in range(9):
-                    # print("Testing new one +1")
-                    new_array1 = copy.deepcopy(board.get_board())
-                    test_board = TicTacToe(new_array1,1)
                     if (board.spot_empty((i//3,i%3))):
-                        new_array = copy.deepcopy(new_array1)
+                        new_array = copy.deepcopy(board.get_board())
                         test_board = TicTacToe(new_array,1)
                         test_board.update_board([i//3,i%3])
                         value = minimax(-1,test_board)[0]
                         if (value>best_value):
                             best_value = value
                             best_move = [i//3,i%3]
-                # print(best_move)
                 return (best_value,best_move)
-                # Maximize score
             elif (player_move == -1):
                 # return submini(-1,board)
                 best_value = math.inf
                 best_move = [100,100]
                 for i in range(9):
-                    # print("Testing new one -1")
                     new_array1 = copy.deepcopy(board.get_board())
                     test_board = TicTacToe(new_array1,-1)
                     if (board.spot_empty((i//3,i%3))):
@@ -149,7 +143,6 @@ class TacTreeTracer:
                         if (value<best_value):
                             best_value = value
                             best_move = [i//3,i%3]
-                # print(best_move)
                 return (best_value,best_move)
         a = minimax(self.player_position,self.board)
         print(self.board.get_board())
