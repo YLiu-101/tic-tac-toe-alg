@@ -124,8 +124,10 @@ class TacTreeTracer:
 
         @return: None
         """
-        self.board[move[0]][move[1]] = -1
+        self.board.get_board()[move[0]][move[1]] = -self.board.get_move()
         self.solution_space.pop(3*move[0]+move[1])
+    def get_board(self):
+        return self.board
     def display_board(self):
         """"
         Used if no frontend is present: displays the tic tac toe board to the terminal
@@ -149,14 +151,12 @@ class TacTreeTracer:
             return " "        
         
 def main():
-    moves = 0
     b = TacTreeTracer() #Player/Computer
-    board1 = list(np.zeros((4,4)))
+    board1 = list(np.zeros((3,3)))
     board = TicTacToe(board1,1)
     a = TacTreeTracer(board1)
     b = TacTreeTracer(board1)
-    while (board.check_winner() == 0 and moves < 9):
-        moves+=1
+    while (board.check_winner() == 0):
         a_move = a.player_move()
         b.get_opp_move(a_move)
         b_move = b.player_move()

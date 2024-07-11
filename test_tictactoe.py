@@ -34,7 +34,6 @@ class Test_Backend(unittest.TestCase):
         self.assertEqual(self.board.check_winner(),1)
         self.assertEqual(self.board.get_move(),-1)
 
-    # This test is designed to fail for demonstration purposes.
 
 
 if __name__ == '__main__':
