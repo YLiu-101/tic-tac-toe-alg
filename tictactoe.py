@@ -1,5 +1,6 @@
 import numpy as np
 import math
+import copy
 class TicTacToe:
     """
     Takes care of all the underlying game functionality
@@ -21,7 +22,7 @@ class TicTacToe:
     def check_winner(self):
         def check_rows():
             for row in self.board:
-                if abs(sum(row) == 3):
+                if abs(sum(row)) == 3:
                     return sum(row)/3
             return 0
         def check_cols():
