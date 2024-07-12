@@ -118,8 +118,8 @@ class TacTreeTracer:
                 return submini(-1,board)
 
         a = minimax(self.board.get_move(),self.board)
-        print(a[1][0],a[1][1])
-        # self.board.get_board()[a[1][0]][[a[1][1]]] = self.board.get_move()
+        # print(a[1][0],a[1][1])
+        self.board.get_board()[a[1][0]][a[1][1]] = self.board.get_move()
         print(self.board.get_board())
         return a
     def get_opp_move(self,move):
@@ -170,6 +170,8 @@ def main():
         if a.get_board().spot_empty([x_player,y_player]):
             a.get_opp_move([x_player,y_player])
             a.get_board().display_board()
+            if (board.check_winner() == 900):
+                break
             a.player_move()
             a.get_board().display_board()
     print(f"And the winner is {board.check_winner()}!")
