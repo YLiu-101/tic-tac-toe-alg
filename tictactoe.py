@@ -147,7 +147,7 @@ class TacTreeTracer:
             string += 10*"-"
             string += "\n"
         print(string)
-        def num_converter(num):
+        def num_converter(num): 
             if (num == 1):
                 return "O"
             elif (num == -1):
@@ -167,8 +167,8 @@ def main():
         while not y_player.isdecimal():
             y_player = input("Y coordinate of next move? ")
         y_player = int(y_player)
-        if a.get_board().spot_empty([x_player,y_player]):
-            a.get_opp_move([x_player,y_player])
+        if a.get_board().spot_empty([y_player,x_player]):
+            a.get_opp_move([y_player,x_player])
             a.get_board().display_board()
             if (board.check_winner() == 900):
                 break
