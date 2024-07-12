@@ -61,6 +61,8 @@ class TicTacToe:
     def display_board(self):
         """"
         Used if no frontend is present: displays the tic tac toe board to the terminal
+
+        @returns None
         """
         def num_converter(num):
             if (num == 1):
@@ -116,6 +118,7 @@ class TacTreeTracer:
                 return submini(-1,board)
 
         a = minimax(self.player_position,self.board)
+        self.board[a[1][0]][[a[1][1]]] = self.board.get_move()
         print(self.board.get_board())
         return a
     def get_opp_move(self,move):
@@ -151,16 +154,23 @@ class TacTreeTracer:
             return " "        
         
 def main():
-    b = TacTreeTracer() #Player/Computer
     board1 = list(np.zeros((3,3)))
     board = TicTacToe(board1,1)
     a = TacTreeTracer(board1)
-    b = TacTreeTracer(board1)
     while (board.check_winner() == 0):
-        a_move = a.player_move()
-        b.get_opp_move(a_move)
-        b_move = b.player_move()
-        a.get_opp_move(b_move)
+        x_player = ""
+        y_player = ""
+        while not x_player.isdecimal():
+            x_player = input("X coordinate of next move?")
+        x_player = int(x_player)
+        while not y_player.isdecimal():
+            y_player = input("Y coordinate of next move?")
+        y_player = int(y_player)
+        if a.get_board().spot_empty([x_player,y_player]):
+            a.get_opp_move([x_player,y_player])
+            a.get_board().display_board()
+            bot_move = a.player_move()[1]
+
     print(f"And the winner is {board.check_winner()}!")
 if __name__ == '__main__':
     main()
