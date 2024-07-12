@@ -17,7 +17,7 @@ class Test_Backend(unittest.TestCase):
     def test_get_opp_move(self):
         self.tracer.get_opp_move([0,1])
         self.assertEqual([[1,-1,-1],[0,1,-1],[1,-1,0]],self.tracer.get_board().get_board())
-
+    
 
 
 
