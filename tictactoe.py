@@ -84,7 +84,7 @@ class TicTacToe:
 class TacTreeTracer:
     def __init__(self,board:TicTacToe):
         self.board = board
-        self.solution_space = list(range(9))
+        # self.solution_space = list(range(9))
     def player_move(self):
         """
         Implements the min-max algorithm here, returns the move bot decides to go with
@@ -105,7 +105,7 @@ class TacTreeTracer:
                         best_move = [i//3,i%3]
             return (best_value,best_move)
         def minimax(player_move,board): 
-            board.display_board()
+            # board.display_board()
             if (board.check_winner() == 1 or board.check_winner() == -1 or board.check_winner() == 900):
                 if board.check_winner() == 900:
                     print("Tie")
@@ -117,8 +117,9 @@ class TacTreeTracer:
             elif (player_move == -1):
                 return submini(-1,board)
 
-        a = minimax(self.player_position,self.board)
-        self.board[a[1][0]][[a[1][1]]] = self.board.get_move()
+        a = minimax(self.board.get_move(),self.board)
+        print(a[1][0],a[1][1])
+        # self.board.get_board()[a[1][0]][[a[1][1]]] = self.board.get_move()
         print(self.board.get_board())
         return a
     def get_opp_move(self,move):
@@ -128,7 +129,7 @@ class TacTreeTracer:
         @return: None
         """
         self.board.get_board()[move[0]][move[1]] = -self.board.get_move()
-        self.solution_space.pop(3*move[0]+move[1])
+        # self.solution_space.pop(3*move[0]+move[1])
     def get_board(self):
         return self.board
     def display_board(self):
@@ -154,23 +155,23 @@ class TacTreeTracer:
             return " "        
         
 def main():
-    board1 = list(np.zeros((3,3)))
+    board1 = [[0,0,0],[0,0,0],[0,0,0]]
     board = TicTacToe(board1,1)
-    a = TacTreeTracer(board1)
+    a = TacTreeTracer(board)
     while (board.check_winner() == 0):
         x_player = ""
         y_player = ""
         while not x_player.isdecimal():
-            x_player = input("X coordinate of next move?")
+            x_player = input("X coordinate of next move? ")
         x_player = int(x_player)
         while not y_player.isdecimal():
-            y_player = input("Y coordinate of next move?")
+            y_player = input("Y coordinate of next move? ")
         y_player = int(y_player)
         if a.get_board().spot_empty([x_player,y_player]):
             a.get_opp_move([x_player,y_player])
             a.get_board().display_board()
-            bot_move = a.player_move()[1]
-
+            a.player_move()
+            a.get_board().display_board()
     print(f"And the winner is {board.check_winner()}!")
 if __name__ == '__main__':
     main()
